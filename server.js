@@ -1,21 +1,28 @@
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+import express, { json } from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import connectDB from "./config/db.js";
+import productRoutes from "./routers/productRoutes.js";
+import path from "path";
 
-const productRoutes = require('./routes/products');
+dotenv.config();
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+connectDB();
+
 app.use(cors());
-app.use(express.json());
+app.use(json());
+app.use(express.static(path.join(process.cwd(), "public")));
 
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB conected!'))
-  .catch(err => console.error(err));
+app.use((req, res, next) => {
+  console.log(`Request to ${req.url}`);
+  next();
+});
 
-app.use('/api/products', productRoutes);
+app.use("/product", productRoutes);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`Server is on the port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
