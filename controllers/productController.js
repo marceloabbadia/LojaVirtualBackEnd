@@ -38,3 +38,20 @@ export const getOneProduct = async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
+
+export const toggleWishlist = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    product.wishlist = !product.wishlist;
+    await product.save();
+
+    res.json({ wishlist: product.wishlist });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
