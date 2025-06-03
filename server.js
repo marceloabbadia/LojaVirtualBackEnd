@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import productRoutes from "./routers/productRoutes.js";
+import authRoute from "./routers/authRoutes.js";
 import path from "path";
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/product", productRoutes);
+app.use("/auth", authRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
