@@ -1,5 +1,5 @@
 import express from "express";
-import Utilizador from "../models/Utilizador.js";
+import Utilizador from "../models/UtilizadorModel.js";
 
 const router = express.Router();
 
@@ -48,8 +48,7 @@ export const createUser = async (req, res) => {
   }
 };
 
-// Atualizar utilizador
-router.put("/utilizadores/:id", async (req, res) => {
+export const updateUser = async (req, res) => {
   const updates = req.body;
 
   try {
@@ -70,10 +69,9 @@ router.put("/utilizadores/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Erro ao atualizar utilizador" });
   }
-});
+};
 
-// Deletar utilizador
-router.delete("/utilizadores/:id", async (req, res) => {
+export const deleteUser = async (req, res) => {
   try {
     const deletedUser = await Utilizador.findByIdAndDelete(req.params.id);
 
@@ -85,4 +83,4 @@ router.delete("/utilizadores/:id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Erro ao excluir utilizador" });
   }
-});
+};
