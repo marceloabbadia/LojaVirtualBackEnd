@@ -1,7 +1,4 @@
-import express from "express";
 import Utilizador from "../models/UtilizadorModel.js";
-
-const router = express.Router();
 
 export const getAllUsers = async (req, res) => {
   try {
@@ -27,20 +24,29 @@ export const getOneUser = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { nome, email, senha, morada, codigoPostal, pais } = req.body;
+  const { name, email, password, address, cp4, cp3, cplocal, country } =
+    req.body;
 
   try {
     const newUser = new Utilizador({
-      nome,
+      name,
       email,
-      senha,
-      morada,
-      codigoPostal,
-      pais,
+      password,
+      address,
+      cp4,
+      cp3,
+      cplocal,
+      country,
+      situation: "disabled",
+      function: "client",
+      wishlist: [],
+      cart: [],
     });
+
     await newUser.save();
     res.status(201).json(newUser);
   } catch (error) {
+    console.error("Erro ao cadastrar:", error);
     if (error.code === 11000) {
       return res.status(400).json({ message: "E-mail já cadastrado" });
     }

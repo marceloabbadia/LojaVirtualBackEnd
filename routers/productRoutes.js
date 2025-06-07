@@ -4,13 +4,11 @@ import {
   getOneProduct,
   createProduct,
   highlightProducts,
-  toggleWishlist,
 } from "../controllers/productController.js";
 
 const router = Router();
 
 router.get("/highlights", highlightProducts);
-router.patch("/wishlist/:id", toggleWishlist);
 
 router.get("/", getProducts);
 router.get("/:id", getOneProduct);

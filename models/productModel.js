@@ -11,8 +11,6 @@ const productSchema = new Schema(
     mainPhoto: { type: String },
     secondaryPhoto: { type: String },
     highlight: { type: Boolean },
-    wishlist: { type: Boolean },
-    cart: { type: Boolean },
   },
   {
     timestamps: true,

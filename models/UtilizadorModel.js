@@ -1,8 +1,9 @@
+import mongoose from "mongoose";
 import { Schema, model } from "mongoose";
 
 const utilizadorSchema = new Schema(
   {
-    nome: {
+    name: {
       type: String,
       required: true,
     },
@@ -11,20 +12,46 @@ const utilizadorSchema = new Schema(
       required: true,
       unique: true,
     },
-    senha: {
+    password: {
       type: String,
       required: true,
     },
-    morada: {
+    address: {
       type: String,
       required: true,
     },
-    codigoPostal: {
+    cp4: {
       type: String,
       required: true,
     },
-    pais: {
+    cp3: {
       type: String,
+      required: true,
+    },
+    cplocal: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    situation: {
+      type: String,
+      required: true,
+    },
+    function: {
+      type: String,
+      required: true,
+    },
+    wishlist: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Product",
+      required: true,
+    },
+    cart: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Product",
       required: true,
     },
   },
