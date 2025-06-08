@@ -10,16 +10,19 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getOneUser = async (req, res) => {
+  const { id } = req.params;
+
   try {
-    const user = await Utilizador.findById(req.params.id);
+    const user = await Utilizador.findById(id);
 
     if (!user) {
       return res.status(404).json({ message: "Utilizador não encontrado" });
     }
 
-    res.json(user);
+    return res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao buscar utilizador" });
+    console.error("Erro ao buscar utilizador:", error.message);
+    return res.status(500).json({ message: "Erro ao buscar utilizador" });
   }
 };
 

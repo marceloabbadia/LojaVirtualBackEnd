@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 app.use("/product", productRoutes);
 app.use("/auth", authRoute);
-app.use("/utilizadores", utilizadorRoutes);
+app.use("/utilizador", utilizadorRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
