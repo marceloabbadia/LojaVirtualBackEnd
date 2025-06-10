@@ -93,3 +93,41 @@ export const deleteUser = async (req, res) => {
     res.status(500).json({ message: "Erro ao excluir utilizador" });
   }
 };
+
+export const updateUserStatusAndFunction = async (req, res) => {
+  const { id } = req.params;
+  const { situation, func } = req.body;
+
+  if (!situation && !func) {
+    return res.status(400).json({ message: "Nenhuma alteração fornecida." });
+  }
+
+  try {
+    const updateFields = {};
+
+    if (situation) {
+      updateFields.situation = situation;
+    }
+
+    if (func) {
+      updateFields.function = func;
+    }
+
+    const updatedUser = await Utilizador.findByIdAndUpdate(id, updateFields, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Utilizador não encontrado." });
+    }
+
+    res.json({
+      message: "Dados atualizados com sucesso.",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Erro ao atualizar dados:", error.message);
+    res.status(500).json({ message: "Erro interno no servidor." });
+  }
+};

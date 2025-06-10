@@ -38,11 +38,12 @@ const utilizadorSchema = new Schema(
     },
     situation: {
       type: String,
-      required: true,
+      enum: ["disabled", "actived"],
+      default: "disabled",
     },
     function: {
       type: String,
-      required: true,
+      enum: ["cliente", "admin"],
     },
     wishlist: {
       type: [mongoose.Schema.Types.ObjectId],
